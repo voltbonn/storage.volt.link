@@ -152,6 +152,8 @@ app.get('/download_file', async (req, res) => {
             endpoint: 'https://s3.eu-central-1.amazonaws.com/',
             accessKeyId: process.env.s3_access_key_id,
             secretAccessKey: process.env.s3_secret_access_key,
+            accessSecretKey: process.env.s3_secret_access_key,
+            region: 'eu-central-1',
             sslEnabled: false,
             s3ForcePathStyle: true,
           })
