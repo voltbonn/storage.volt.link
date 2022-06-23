@@ -148,9 +148,6 @@ app.get('/download_file', async (req, res) => {
           typeof keyName === 'string' && keyName.length > 0
         ) {
 
-          console.log('test-access-key-i: ', process.env.s3_access_key_id);
-          console.log('test-access-key-s: ', process.env.s3_secret_access_key);
-
           const s3 = new AWS.S3({
             endpoint: 'https://s3.eu-central-1.amazonaws.com/',
             accessKeyId: process.env.s3_access_key_id,
