@@ -199,14 +199,26 @@ app.get('/download_file', async (req, res) => {
               format = 'jpeg'
             }
 
+            let formatOptions = {}
             if (format === 'webp') {
               mime = 'image/webp'
+              formatOptions = {
+                quality: 80,
+              }
             }
             if (format === 'jpeg') {
               mime = 'image/jpeg'
+              formatOptions = {
+                quality: 80,
+                alphaQuality: 80,
+              }
             }
             if (format === 'png') {
               mime = 'image/png'
+              formatOptions = {
+                quality: 80,
+                progressive: true,
+              }
             }
 
             let sharpResizer = null
@@ -225,10 +237,10 @@ app.get('/download_file', async (req, res) => {
                   withoutEnlargement: true,
                   fastShrinkOnLoad: true,
                 })
-                .toFormat(format)
+                .toFormat(format, formatOptions)
             } else {
               sharpResizer = sharp()
-                .toFormat(format)
+                .toFormat(format, formatOptions)
             }
 
             res
@@ -372,14 +384,26 @@ app.get('/download_url', async (req, res) => {
             format = 'jpeg'
           }
 
+          let formatOptions = {}
           if (format === 'webp') {
             mime = 'image/webp'
+            formatOptions = {
+              quality: 80,
+            }
           }
           if (format === 'jpeg') {
             mime = 'image/jpeg'
+            formatOptions = {
+              quality: 80,
+              alphaQuality: 80,
+            }
           }
           if (format === 'png') {
             mime = 'image/png'
+            formatOptions = {
+              quality: 80,
+              progressive: true,
+            }
           }
 
           responseBuffer = await sharp(responseBuffer)
@@ -389,7 +413,7 @@ app.get('/download_url', async (req, res) => {
               withoutEnlargement: true,
               fastShrinkOnLoad: true,
             })
-            .toFormat(format)
+            .toFormat(format, formatOptions)
             .toBuffer()
         }
 
