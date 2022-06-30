@@ -335,6 +335,8 @@ app.get('/download_file', async (req, res) => {
 })
 
 app.get('/download_url', async (req, res) => {
+  const { fileTypeFromBuffer } = await import('file-type')
+
   const url = req.query.url || null
 
   if (typeof url === 'string' && url.length > 0 && isAbsoluteUrlRegexp.test(url)) {
