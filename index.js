@@ -11,6 +11,7 @@ const { fetch } = require('cross-fetch')
 const AWS = require('aws-sdk')
 const sharp = require('sharp')
 
+const isAbsoluteUrlRegexp = new RegExp('^(?:[a-z]+:)?//', 'i')
 
 function checkOrigin(origin) {
   return (
