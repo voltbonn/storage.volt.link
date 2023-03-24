@@ -14,23 +14,43 @@ const sharp = require('sharp')
 const isAbsoluteUrlRegexp = new RegExp('^(?:[a-z]+:)?//', 'i')
 
 function checkOrigin(origin) {
-  return (
-    typeof origin === 'string'
-    && (
+  let isAllowed = false
+
+  if (typeof origin === 'string') {
+    if (
+      // allow from main domain
       origin === 'volt.link'
       || origin.endsWith('://volt.link')
 
       // allow from subdomains
       || origin.endsWith('.volt.link')
+      || origin.startsWith('volt')
+      || origin.startsWith('www.volt')
+
+      // allow from volt website
+      || origin === 'volteuropa.org'
+      || origin === 'voltdeutschland.org'
+      || origin === 'voltbrandenburg.org'
+      || origin.endsWith('volteuropa.org')
+      || origin.endsWith('voltdeutschland.org')
+      || origin.endsWith('voltbrandenburg.org')
+      || origin.includes('://www.volt')
+      || origin.includes('://volt')
 
       // allow for localhost
       || origin.endsWith('localhost:3000')
+      || origin.endsWith('localhost:4003')
       || origin.endsWith('localhost:4000')
       || origin.endsWith('0.0.0.0:3000')
+      || origin.endsWith('0.0.0.0:4003')
       || origin.endsWith('0.0.0.0:4000')
       || origin.endsWith('localhost:19006')
-    )
-  )
+    ) {
+      isAllowed = true
+    }
+  }
+
+  return isAllowed
 }
 
 const app = express()
